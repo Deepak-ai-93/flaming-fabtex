@@ -1,0 +1,66 @@
+/* Fleming Fabtex — Block Editor canvas fixes (v2.10.1)
+ * Why this file exists: legacy pages store raw .ffx-* HTML + <style id="ffx-inline">
+ * in post_content. Gutenberg parsed that as dozens of broken paragraph blocks
+ * (raw CSS visible, stray </p> fragments). Pages are now wrapped in a single
+ * wp:html block; this stylesheet makes that block's Preview render like the
+ * frontend and keeps the editor chrome usable.
+ */
+
+/* 1) Match frontend content width inside the editor canvas */
+.editor-styles-wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: #0f172a;
+  background: #f8f9fc;
+  line-height: 1.6;
+}
+
+/* 2) Let the inlined page CSS (.ffx-*) apply in the canvas preview.
+ * The <style id="ffx-inline"> travels with the post_content, so most rules
+ * already apply — these guards fix editor-specific layout breakage only. */
+.editor-styles-wrapper .ffx-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+.editor-styles-wrapper .ffx-root {
+  overflow: hidden;
+}
+.editor-styles-wrapper .ffx-root img {
+  max-width: 100%;
+  height: auto;
+}
+/* Toast / modal are position:fixed on the frontend — keep them from
+ * covering the editor canvas while previewing. */
+.editor-styles-wrapper .ffx-toast,
+.editor-styles-wrapper .ffx-modal {
+  position: static;
+  transform: none;
+  opacity: 1;
+  pointer-events: none;
+  display: block;
+  margin-top: 12px;
+}
+
+/* 3) Custom HTML block: make the preview state obvious + readable.
+ * Edit state (textarea) is left untouched. */
+.wp-block-html .block-editor-plain-text {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+/* Never show raw <style> contents as text in the canvas */
+.editor-styles-wrapper style#ffx-inline {
+  display: none;
+}
+
+/* 4) Section blocks inspector helpers (kept from before) */
+.fsec-row {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+  display: grid;
+  gap: 8px;
+}
