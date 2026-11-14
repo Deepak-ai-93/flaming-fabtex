@@ -6,6 +6,8 @@
 auth.json
 node_modules
 vendor
+!public/assets/js/vendor/
+!public/assets/js/vendor/**
 tests
 database/*.sqlite*
 storage/app/*
