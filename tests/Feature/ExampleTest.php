@@ -36,4 +36,14 @@ class ExampleTest extends TestCase
             ->assertOk()
             ->assertSee('href="' . url('/product/corporate-wear') . '"', false);
     }
+
+    public function test_assets_use_https_when_request_is_forwarded_over_https(): void
+    {
+        $this->withServerVariables([
+            'HTTP_X_FORWARDED_PROTO' => 'https',
+        ])->get('/')
+            ->assertOk()
+            ->assertSee('href="https://localhost:8000/assets/css/tokens.css"', false)
+            ->assertSee('src="https://localhost:8000/assets/js/vendor/gsap.min.js"', false);
+    }
 }
