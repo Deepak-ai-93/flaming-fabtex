@@ -109,8 +109,8 @@
     // Clear pre-JS off-screen transforms so the track translation can position slides correctly.
     Array.prototype.forEach.call(slides, function (s) { s.style.transform = ''; });
     var dots = Array.prototype.slice.call(sliderWrap.querySelectorAll('[data-dot]'));
-    var prev = sliderWrap.querySelector('[data-prev]');
-    var next = sliderWrap.querySelector('[data-next]');
+    var prevBtns = Array.prototype.slice.call(sliderWrap.querySelectorAll('[data-prev]'));
+    var nextBtns = Array.prototype.slice.call(sliderWrap.querySelectorAll('[data-next]'));
     var count = sliderWrap.querySelector('[data-count]');
     var bar = sliderWrap.querySelector('[data-progress]');
     var cur = 0, timer = null, AUTOPLAY_MS = 5000;
@@ -154,13 +154,17 @@
         else slides[i].setAttribute('aria-hidden', 'true');
         var lnk = slides[i].querySelector('.hero-full-link');
         if (lnk) lnk.tabIndex = on ? 0 : -1;
-        if (img) img.style.transform = 'translateX(' + (off * 4) + '%) scale(1.08)';
+        if (img) img.style.transform = 'translateX(' + (off * 4) + '%) scale(1.04)';
         if (dots[i]) {
           dots[i].classList.toggle('is-active', on);
           dots[i].setAttribute('aria-selected', on ? 'true' : 'false');
         }
       }
-      if (count) count.textContent = (cur + 1) + ' / ' + slides.length;
+      if (count) {
+        var padCur = (cur + 1 < 10 ? '0' : '') + (cur + 1);
+        var padTotal = (slides.length < 10 ? '0' : '') + slides.length;
+        count.textContent = padCur + ' / ' + padTotal;
+      }
       paintProgress();
       if (user) restart();
     }
@@ -177,8 +181,12 @@
       paintProgress();
       timer = setInterval(function () { show(cur + 1, false); }, AUTOPLAY_MS);
     }
-    if (prev) prev.addEventListener('click', function () { show(cur - 1, true); });
-    if (next) next.addEventListener('click', function () { show(cur + 1, true); });
+    prevBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { show(cur - 1, true); });
+    });
+    nextBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { show(cur + 1, true); });
+    });
     dots.forEach(function (d, i) {
       d.addEventListener('click', function () { show(i, true); });
     });
@@ -212,7 +220,14 @@
     restart();
   }
   // Boot every slider on the page…
-  Array.prototype.forEach.call(document.querySelectorAll('[data-hero-slider]'), initHeroSlider);
+  function bootAllSliders() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-hero-slider]'), initHeroSlider);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootAllSliders);
+  } else {
+    bootAllSliders();
+  }
   // …and re-boot after a Customizer selective-refresh re-renders the hero,
   // so live-preview edits keep auto-playing without a full page reload.
   if (window.jQuery) {

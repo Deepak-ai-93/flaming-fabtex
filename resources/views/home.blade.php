@@ -11,56 +11,70 @@
     </div>
 </div>
 
-<section class="hero-stage" data-hero-v2>
-    <div class="hero-bg" aria-hidden="true">
-        <i class="blob b1"></i>
-        <i class="blob b2"></i>
-        <i class="blob b3"></i>
-        <i class="grid"></i>
-    </div>
-    <div class="wrap">
-        <div class="hero">
-            <div class="hero-copy">
-                <div class="eyebrow eyebrow-pill" data-hero-el>
-                    <span class="cap-dot"></span>
-                    Ahmedabad-based apparel manufacturing • Est. 2013
-                </div>
-                <h1 class="hero-h1" data-hero-el>
-                    <span class="hw"><span class="hw-in">Custom Bulk Apparel,</span></span>
-                    <span class="hw"><span class="hw-in"><em class="hero-em">Factory Direct</em></span></span>
-                </h1>
-                <p class="lede" data-hero-el>
-                    Bulk apparel for businesses, schools, teams and events. Share your style, quantity, artwork and delivery needs to get a tailored written quote.
-                </p>
-                <p class="hero-rot" data-rotator data-hero-el>
-                    We print &amp; stitch
-                    <span class="rot-word" data-words="T-Shirts|Polos|Hoodies|Sweatshirts|Uniforms|Woven Tees">Polos</span>
-                    for corporates, schools &amp; brands
-                </p>
-                <div class="hero-btns" data-hero-el>
-                    <a class="btn btn-p btn-lg" href="{{ route('shop.index') }}">Explore Catalog <span aria-hidden="true">→</span></a>
-                    <a class="btn btn-o btn-lg" href="#pricing">Bulk Pricing Slabs</a>
-                </div>
-                <div class="hero-trust" data-hero-el>
-                    <span><b aria-hidden="true">✓</b> 25 MOQ</span>
-                    <span><b aria-hidden="true">✓</b> Availability confirmed by quote</span>
-                    <span><b aria-hidden="true">✓</b> Custom options by style</span>
-                    <span><b aria-hidden="true">✓</b> Written order details</span>
-                </div>
-            </div>
+@php
+    $heroSlides = [
+        [
+            'image' => asset('assets/img/WhatsApp-Image-2026-10-14-at-9.18.18-AM.jpeg'),
+            'alt' => 'Fleming Fabtex Custom Bulk Apparel Manufacturing',
+            'link' => route('shop.index'),
+        ],
+        [
+            'image' => asset('assets/img/WhatsApp-Image-2026-10-14-at-9.19.05-AM.jpeg'),
+            'alt' => 'Corporate Polos, T-Shirts and Promotional Wear',
+            'link' => route('shop.index'),
+        ],
+        [
+            'image' => asset('assets/img/WhatsApp-Image-2026-10-14-at-9.16.24-AM-600x260.jpeg'),
+            'alt' => 'Factory Direct Bulk Apparel Production',
+            'link' => route('shop.index'),
+        ],
+    ];
+@endphp
 
-            <div class="hero-media-wrap" data-hero>
-                <div class="hero-media" data-media>
-                    <img src="{{ asset('assets/img/image-10NH.png') }}" alt="Custom apparel manufactured by Fleming Fabtex" width="688" height="606" fetchpriority="high">
-                </div>
-                <div class="hero-badge-float"><span class="dot"></span> Ahmedabad • Est. 2013</div>
-                <div class="pill pill-moq" data-pill data-depth="0.5"><span class="pill-k">MOQ</span> <b>25</b> pcs</div>
-                <div class="hero-stamp" data-pill data-depth="0.3">
-                    <i class="hero-stamp-ring" aria-hidden="true"></i>
-                    <span class="stamp-core"><b>FF</b><small>Est. 2013</small></span>
-                </div>
+<section class="hero-stage hero-simple" data-hero-slider aria-label="Bulk apparel showcase">
+    <div class="hero-full-progress" aria-hidden="true"><i data-progress></i></div>
+    
+    <div class="hero-full-track" data-track>
+        @foreach ($heroSlides as $index => $slide)
+            <div class="hero-full-slide {{ $index === 0 ? 'is-active' : '' }}" data-slide aria-hidden="{{ $index === 0 ? 'false' : 'true' }}">
+                <div class="hero-full-bg" style="background-image: url('{{ $slide['image'] }}');" aria-hidden="true"></div>
+                <a href="{{ $slide['link'] }}" class="hero-full-link" aria-label="{{ $slide['alt'] }}" tabindex="{{ $index === 0 ? '0' : '-1' }}">
+                    <img src="{{ $slide['image'] }}" alt="{{ $slide['alt'] }}" {!! $index === 0 ? 'fetchpriority="high"' : 'loading="lazy"' !!}>
+                </a>
             </div>
+        @endforeach
+    </div>
+
+    <!-- Desktop side navigation arrows -->
+    <button type="button" class="hero-arrow-side hero-prev" data-prev aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+    <button type="button" class="hero-arrow-side hero-next" data-next aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+
+    <!-- Glassmorphic floating control pill -->
+    <div class="hero-full-controls" role="region" aria-label="Slider controls">
+        <button type="button" class="hero-arrow hero-prev" data-prev aria-label="Previous slide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <div class="hero-dots" role="tablist" aria-label="Slide dots">
+            @foreach ($heroSlides as $index => $slide)
+                <button type="button" class="hero-dot {{ $index === 0 ? 'is-active' : '' }}" data-dot role="tab" aria-label="Slide {{ $index + 1 }}" aria-selected="{{ $index === 0 ? 'true' : 'false' }}"></button>
+            @endforeach
         </div>
+        <button type="button" class="hero-arrow hero-next" data-next aria-label="Next slide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+        <span class="hero-count" data-count aria-live="polite">01 / {{ sprintf('%02d', count($heroSlides)) }}</span>
     </div>
 </section>
 

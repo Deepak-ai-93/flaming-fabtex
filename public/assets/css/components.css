@@ -487,35 +487,47 @@
    Track slides horizontally; each banner drifts at its own speed (depth).
    Banners show FULL (contain + blurred twin fill) — never cropped, any device.
    -------------------------------------------------------------------------- */
-.hero-stage.hero-simple { position: relative; width: 100%; max-width: none; padding: 0; border-bottom: 0; background: #f5f2ec; overflow: hidden; isolation: isolate; }
-.hero-simple .hero-full-track { display: flex; height: 660px; will-change: transform; transition: transform 0.9s cubic-bezier(0.22, 0.8, 0.28, 1); }
-@media (max-width: 1400px) { .hero-simple .hero-full-track { height: 600px; } }
-@media (max-width: 1023px) { .hero-simple .hero-full-track { height: 480px; } }
-@media (max-width: 640px) { .hero-simple .hero-full-track { height: 340px; } }
-@media (max-width: 420px) { .hero-simple .hero-full-track { height: 280px; } }
-.hero-simple .hero-full-slide { position: relative; flex: 0 0 100%; width: 100%; height: 100%; overflow: hidden; background: #f5f2ec; opacity: 1; visibility: visible; }
+.hero-stage.hero-simple { position: relative; width: 100%; max-width: none; padding: 0; border-bottom: 0; background: #0b1120; overflow: hidden; isolation: isolate; }
+.hero-simple::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2; background: linear-gradient(180deg, rgba(15,23,42,0.18) 0%, transparent 20%, transparent 80%, rgba(15,23,42,0.3) 100%); }
+.hero-simple .hero-full-track { display: flex; height: 560px; will-change: transform; transition: transform 0.9s cubic-bezier(0.22, 0.8, 0.28, 1); }
+@media (max-width: 1400px) { .hero-simple .hero-full-track { height: 500px; } }
+@media (max-width: 1023px) { .hero-simple .hero-full-track { height: 420px; } }
+@media (max-width: 640px) { .hero-simple .hero-full-track { height: 320px; } }
+@media (max-width: 420px) { .hero-simple .hero-full-track { height: 260px; } }
+.hero-simple .hero-full-slide { position: relative; flex: 0 0 100%; width: 100%; height: 100%; overflow: hidden; background: #0b1120; opacity: 1; visibility: visible; }
 /* Blurred twin fills the frame edge-to-edge (zero empty bars) */
-.hero-simple .hero-full-bg { position: absolute; inset: -30px; z-index: 0; background-size: cover; background-position: center center; filter: blur(32px) saturate(1.15) brightness(0.99); pointer-events: none; }
-.hero-simple .hero-full-link { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; overflow: hidden; }
-/* Parallax layer: FULL banner always — contain fit, zero cuts top/bottom/sides.
-   Slight overscan (scale via JS) gives the drift headroom without exposing gaps. */
-.hero-simple .hero-full-slide img { width: 100%; height: 100%; object-fit: contain; object-position: center center; display: block; filter: none; will-change: transform; transition: transform 0.9s cubic-bezier(0.22, 0.8, 0.28, 1); }
-.hero-simple .hero-full-progress { position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 5; background: rgba(15,23,42,0.12); }
-.hero-simple .hero-full-progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--primary), #ffb37a); }
+.hero-simple .hero-full-bg { position: absolute; inset: -40px; z-index: 0; background-size: cover; background-position: center center; filter: blur(40px) saturate(1.25) brightness(0.9); opacity: 0.85; pointer-events: none; }
+.hero-simple .hero-full-link { position: relative; z-index: 1; display: block; width: 100%; height: 100%; overflow: hidden; padding: 0; }
+/* Parallax layer: FULL banner always — contain fit, zero cuts top/bottom/sides. */
+.hero-simple .hero-full-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; will-change: transform; transition: transform 0.9s cubic-bezier(0.22, 0.8, 0.28, 1); }
+.hero-simple .hero-full-progress { position: absolute; top: 0; left: 0; right: 0; height: 3.5px; z-index: 5; background: rgba(255,255,255,0.12); }
+.hero-simple .hero-full-progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--primary), #ff9852); box-shadow: 0 0 10px rgba(255,90,0,0.6); }
+
+/* Side navigation arrows for desktop hover */
+.hero-simple .hero-arrow-side { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); opacity: 0; pointer-events: none; }
+.hero-simple:hover .hero-arrow-side, .hero-simple:focus-within .hero-arrow-side { opacity: 1; pointer-events: auto; }
+.hero-simple .hero-arrow-side.hero-prev { left: 24px; }
+.hero-simple .hero-arrow-side.hero-next { right: 24px; }
+.hero-simple .hero-arrow-side:hover { background: var(--primary); border-color: var(--primary); transform: translateY(-50%) scale(1.12); box-shadow: 0 14px 30px rgba(255, 90, 0, 0.45); }
+.hero-simple .hero-arrow-side:active { transform: translateY(-50%) scale(0.96); }
+@media (max-width: 768px) { .hero-simple .hero-arrow-side { display: none; } }
+
 /* Floating control bar — compact dark-glass pill */
-.hero-simple .hero-full-controls { position: absolute; z-index: 4; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; background: rgba(15,23,42,0.55); border: 1px solid rgba(255,255,255,0.22); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 999px; padding: 7px 14px 7px 7px; width: fit-content; max-width: calc(100% - 24px); box-shadow: 0 12px 30px rgba(8,15,30,0.25); opacity: 0.45; transition: opacity 0.3s ease; }
+.hero-simple .hero-full-controls { position: absolute; z-index: 4; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; background: rgba(15,23,42,0.72); border: 1px solid rgba(255,255,255,0.22); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 999px; padding: 7px 16px 7px 8px; width: fit-content; max-width: calc(100% - 24px); box-shadow: 0 14px 34px rgba(0,0,0,0.35); opacity: 0.88; transition: opacity 0.3s ease; }
 .hero-simple:hover .hero-full-controls, .hero-simple:focus-within .hero-full-controls { opacity: 1; }
 .hero-simple .hero-full-link:focus-visible { outline: 3px solid var(--primary); outline-offset: -3px; }
-.hero-simple .hero-full-controls .hero-dots { position: static; transform: none; background: transparent; padding: 0; backdrop-filter: none; }
-.hero-simple .hero-full-controls .hero-dot { background: rgba(255,255,255,0.55); }
-.hero-simple .hero-full-controls .hero-dot.is-active { background: var(--primary); animation: hero-dot-pulse 2s ease-in-out infinite; }
+.hero-simple .hero-full-controls .hero-dots { position: static; transform: none; background: transparent; padding: 0; backdrop-filter: none; display: flex; align-items: center; gap: 8px; }
+.hero-simple .hero-full-controls .hero-dot { width: 8px; height: 8px; border-radius: 50%; border: 0; padding: 0; background: rgba(255,255,255,0.45); cursor: pointer; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.hero-simple .hero-full-controls .hero-dot:hover { background: rgba(255,255,255,0.85); }
+.hero-simple .hero-full-controls .hero-dot.is-active { width: 24px; border-radius: 999px; background: var(--primary); box-shadow: 0 0 10px rgba(255,90,0,0.65); }
 @keyframes hero-dot-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,90,0,0.5); } 50% { box-shadow: 0 0 0 5px rgba(255,90,0,0); } }
-.hero-simple .hero-full-controls .hero-count { position: static; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 11px; font-weight: 800; padding: 6px 10px; border-radius: 999px; font-variant-numeric: tabular-nums; }
-.hero-stage.hero-simple .hero-arrow { position: static; transform: none; opacity: 1; width: 34px; height: 34px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25); color: #fff; backdrop-filter: none; font-size: 14px; }
-.hero-stage.hero-simple .hero-arrow:hover { background: var(--primary); border-color: var(--primary); color: #fff; transform: scale(1.06); }
+.hero-simple .hero-full-controls .hero-count { position: static; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 11.5px; font-weight: 700; letter-spacing: 0.05em; padding: 5px 11px; border-radius: 999px; font-variant-numeric: tabular-nums; }
+.hero-stage.hero-simple .hero-arrow { position: static; transform: none; opacity: 1; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); color: #fff; backdrop-filter: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
+.hero-stage.hero-simple .hero-arrow:hover { background: var(--primary); border-color: var(--primary); color: #fff; transform: scale(1.08); }
 @media (max-width: 560px) {
-  .hero-simple .hero-full-controls { bottom: 10px; padding: 6px 12px 6px 6px; gap: 8px; }
-  .hero-stage.hero-simple .hero-arrow { width: 30px; height: 30px; font-size: 13px; }
+  .hero-simple .hero-full-controls { bottom: 12px; padding: 6px 12px 6px 6px; gap: 8px; }
+  .hero-stage.hero-simple .hero-arrow { width: 30px; height: 30px; }
+  .hero-simple .hero-full-link { padding: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-simple .hero-full-track, .hero-simple .hero-full-slide img { transition: opacity 0.2s ease; }
@@ -4370,11 +4382,11 @@ body { overflow-x: clip; }
   visibility: visible;
 }
 /* Re-assert the fixed track-height ladder so the hero never collapses pre-JS. */
-.hero-stage.hero-simple .hero-full-track { height: 660px; }
-@media (max-width: 1400px) { .hero-stage.hero-simple .hero-full-track { height: 600px; } }
-@media (max-width: 1023px) { .hero-stage.hero-simple .hero-full-track { height: 480px; } }
-@media (max-width: 640px) { .hero-stage.hero-simple .hero-full-track { height: 340px; } }
-@media (max-width: 420px) { .hero-stage.hero-simple .hero-full-track { height: 280px; } }
+.hero-stage.hero-simple .hero-full-track { height: 560px; }
+@media (max-width: 1400px) { .hero-stage.hero-simple .hero-full-track { height: 500px; } }
+@media (max-width: 1023px) { .hero-stage.hero-simple .hero-full-track { height: 420px; } }
+@media (max-width: 640px) { .hero-stage.hero-simple .hero-full-track { height: 320px; } }
+@media (max-width: 420px) { .hero-stage.hero-simple .hero-full-track { height: 260px; } }
 /* Legacy boxed slider: first slide wins without JS even if .is-active is lost. */
 .hero-slider:not([data-hero-init]) .hero-slide:first-child { opacity: 1; transform: none; pointer-events: auto; z-index: 1; }
 
