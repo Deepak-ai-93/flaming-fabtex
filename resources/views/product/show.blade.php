@@ -342,6 +342,15 @@
 </div>
 
 <div class="pd-stock-fab" id="pd-stock-fab" data-stock-state="{{ $stockState }}" data-total-stock="{{ $totalStock }}">
+    <button type="button" class="pd-stock-fab-btn" id="pd-stock-toggle" aria-expanded="false" aria-controls="pd-stock-panel">
+        <span class="pd-stock-fab-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"></path><path d="M3 7v10l9 4 9-4V7"></path><path d="M12 11v10"></path></svg>
+        </span>
+        <span class="pd-stock-fab-text">
+            <span class="pd-stock-fab-label">{{ $stockLabel }}</span>
+            <b class="pd-stock-fab-count">{{ number_format($totalStock) }} pcs</b>
+        </span>
+    </button>
     <div class="pd-stock-panel" id="pd-stock-panel" role="dialog" aria-label="Total stock available" hidden>
         <div class="pd-stock-panel-head">
             <span class="pd-stock-panel-title">Total factory stock</span>
@@ -359,14 +368,5 @@
         <p class="pd-stock-panel-note">Quantity across all sizes and colors. Exact allocation is confirmed in your written quote.</p>
         <a class="btn btn-p pd-stock-panel-cta product-whatsapp-link" href="{{ $quoteUrl }}" target="_blank" rel="noopener noreferrer">Check stock on WhatsApp <span aria-hidden="true">&rarr;</span></a>
     </div>
-    <button type="button" class="pd-stock-fab-btn" id="pd-stock-toggle" aria-expanded="false" aria-controls="pd-stock-panel">
-        <span class="pd-stock-fab-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"></path><path d="M3 7v10l9 4 9-4V7"></path><path d="M12 11v10"></path></svg>
-        </span>
-        <span class="pd-stock-fab-text">
-            <span class="pd-stock-fab-label">{{ $stockLabel }}</span>
-            <b class="pd-stock-fab-count">{{ number_format($totalStock) }} pcs</b>
-        </span>
-    </button>
 </div>
 @endsection

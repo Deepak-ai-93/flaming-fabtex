@@ -5033,12 +5033,12 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
    ========================================================================== */
 .pd-stock-fab {
   position: fixed;
-  left: 18px;
-  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  top: calc(112px + env(safe-area-inset-top, 0px));
+  right: 18px;
   z-index: 1190;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 .pd-stock-fab-btn {
   display: inline-flex;
@@ -5104,7 +5104,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 }
 .pd-stock-panel {
   width: min(310px, calc(100vw - 36px));
-  margin-bottom: 10px;
+  margin-top: 10px;
   padding: 16px;
   border-radius: 16px;
   background: #fff;
@@ -5113,7 +5113,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   animation: pd-stock-in 0.18s ease;
 }
 @keyframes pd-stock-in {
-  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
   to   { opacity: 1; transform: none; }
 }
 .pd-stock-panel-head {
@@ -5198,12 +5198,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 
 @media (max-width: 859px) {
   .pd-stock-fab {
-    left: 12px;
-    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-  }
-  /* Keep clear of the mobile sticky buy bar when it is visible */
-  body.pd-sticky-show .pd-stock-fab {
-    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+    top: calc(102px + env(safe-area-inset-top, 0px));
+    right: 12px;
   }
 }
 @media (max-width: 480px) {
