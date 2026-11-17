@@ -322,7 +322,7 @@
     <div class="pd-related-wrap">
         <section class="related products" aria-labelledby="related-products-heading">
             <h2 id="related-products-heading">Related products</h2>
-            <ul class="products columns-4">
+            <ul class="p-grid columns-4">
                 @foreach($relatedProducts as $relatedProduct)
                     @include('partials.product-card', ['product' => $relatedProduct])
                 @endforeach

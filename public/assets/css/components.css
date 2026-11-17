@@ -831,8 +831,10 @@
 
 .p-meta {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 2px 8px;
   font-size: 10.5px;
   font-weight: 700;
   color: var(--ink-light);
@@ -854,7 +856,12 @@
   animation: pulse-dot 2s infinite;
 }
 
-.p-actions { margin-top: 12px; }
+.p-actions {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 .p-actions .btn {
   width: 100%;
   padding: 8px 14px;
