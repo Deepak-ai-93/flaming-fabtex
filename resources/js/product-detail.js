@@ -244,4 +244,44 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     updateEstimate();
+
+    var stockFab = document.getElementById('pd-stock-fab');
+    var stockToggle = document.getElementById('pd-stock-toggle');
+    var stockPanel = document.getElementById('pd-stock-panel');
+    var stockClose = document.getElementById('pd-stock-close');
+
+    if (stockFab && stockToggle && stockPanel) {
+        var openStockPanel = function (open) {
+            stockPanel.hidden = !open;
+            stockToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            stockFab.classList.toggle('is-open', open);
+            if (open) {
+                var firstButton = stockPanel.querySelector('.pd-stock-panel-close');
+                if (firstButton) firstButton.focus();
+            }
+        };
+
+        stockToggle.addEventListener('click', function () {
+            openStockPanel(stockPanel.hidden);
+        });
+
+        if (stockClose) {
+            stockClose.addEventListener('click', function () {
+                openStockPanel(false);
+                stockToggle.focus();
+            });
+        }
+
+        document.addEventListener('click', function (event) {
+            if (stockPanel.hidden) return;
+            if (!stockFab.contains(event.target)) openStockPanel(false);
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !stockPanel.hidden) {
+                openStockPanel(false);
+                stockToggle.focus();
+            }
+        });
+    }
 });

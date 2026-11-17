@@ -13,6 +13,7 @@ class HomeController extends Controller
             'category' => 'COLLAR T-SHIRT',
             'image' => '22-300x300.jpg',
             'price' => '399',
+            'stock' => 480,
         ],
         [
             'slug' => 'promotional-t-shirts',
@@ -20,6 +21,7 @@ class HomeController extends Controller
             'category' => 'COLLAR T-SHIRT, V SHAPE T-SHIRTS',
             'image' => '18-300x300.jpg',
             'price' => '149',
+            'stock' => 720,
         ],
         [
             'slug' => 'election-event-t-shirts',
@@ -27,6 +29,7 @@ class HomeController extends Controller
             'category' => 'COLLAR T-SHIRT, V SHAPE T-SHIRTS',
             'image' => 'image-10-1-300x300.png',
             'price' => '119',
+            'stock' => 360,
         ],
         [
             'slug' => 'customized-t-shirts',
@@ -34,6 +37,7 @@ class HomeController extends Controller
             'category' => 'COLLAR T-SHIRT, V SHAPE T-SHIRTS',
             'image' => '16-300x300.jpg',
             'price' => '279',
+            'stock' => 540,
         ],
         [
             'slug' => 'sweatshirt-jackets-hoodies',
@@ -41,6 +45,7 @@ class HomeController extends Controller
             'category' => 'ALL, HOODIES, JACKETS, SWEATSHIRT',
             'image' => 'Untitled-design-88-300x300.jpg',
             'price' => '699',
+            'stock' => 260,
         ],
         [
             'slug' => 'solid-plain-t-shirts',
@@ -48,6 +53,7 @@ class HomeController extends Controller
             'category' => 'COLLAR T-SHIRT, V SHAPE T-SHIRTS',
             'image' => 'image-10NH-300x300.png',
             'price' => '249',
+            'stock' => 610,
         ],
         [
             'slug' => 'school-institute-uniform',
@@ -55,6 +61,7 @@ class HomeController extends Controller
             'category' => 'COLLAR T-SHIRT, V SHAPE T-SHIRTS',
             'image' => '20-300x300.jpg',
             'price' => '299',
+            'stock' => 430,
         ],
         [
             'slug' => 'customized-event-t-shirt-full-print',
@@ -62,6 +69,7 @@ class HomeController extends Controller
             'category' => 'CUSTOMIZED T-SHIRTS',
             'image' => 'image-10-1-300x300.png',
             'price' => '319',
+            'stock' => 210,
         ],
     ];
 

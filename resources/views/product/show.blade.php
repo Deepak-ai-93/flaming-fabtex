@@ -14,6 +14,9 @@
         ['min' => 1000, 'range' => '1000+ pcs', 'label' => 'Volume quote'],
     ];
     $isPromotionalTShirt = $product['slug'] === 'promotional-t-shirts';
+    $totalStock = (int) ($product['stock'] ?? 0);
+    $stockState = $totalStock <= 0 ? 'out' : ($totalStock < 100 ? 'low' : 'in');
+    $stockLabel = $stockState === 'out' ? 'Made to order' : ($stockState === 'low' ? 'Low stock' : 'In stock');
 @endphp
 
 <article class="pd-clean-layout"
@@ -178,10 +181,10 @@
                     <span id="pd-qty-hint" class="sr-only">Minimum order is 25 pieces, in increments of 25.</span>
                 </div>
 
-                <div class="pd-avail-stock">
+                <div class="pd-avail-stock pd-avail-stock--{{ $stockState }}">
                     <span class="pd-dot" aria-hidden="true"></span>
-                    <span>Availability confirmed with your quote</span>
-                    <em>Stock and lead time depend on the style and requested quantity.</em>
+                    <span>{{ $stockLabel }} · <b>{{ number_format($totalStock) }} pcs</b> at the factory</span>
+                    <em>Total across sizes and colors · final allocation confirmed in your quote.</em>
                 </div>
 
                 <div class="pd-btn-group">
@@ -336,5 +339,34 @@
     </div>
     <a class="btn btn-o product-whatsapp-link" href="{{ $quoteUrl }}" target="_blank" rel="noopener noreferrer">Quote</a>
     <a class="btn btn-p" href="tel:+917990718742">Call</a>
+</div>
+
+<div class="pd-stock-fab" id="pd-stock-fab" data-stock-state="{{ $stockState }}" data-total-stock="{{ $totalStock }}">
+    <div class="pd-stock-panel" id="pd-stock-panel" role="dialog" aria-label="Total stock available" hidden>
+        <div class="pd-stock-panel-head">
+            <span class="pd-stock-panel-title">Total factory stock</span>
+            <button type="button" class="pd-stock-panel-close" id="pd-stock-close" aria-label="Close stock details">&times;</button>
+        </div>
+        <div class="pd-stock-panel-total">
+            <b>{{ number_format($totalStock) }}</b>
+            <span>pieces available</span>
+        </div>
+        <ul class="pd-stock-panel-facts">
+            <li><span>Product</span><b>{{ $product['name'] }}</b></li>
+            <li><span>Minimum order</span><b>25 pcs</b></li>
+            <li><span>Stock status</span><b class="pd-stock-state pd-stock-state--{{ $stockState }}">{{ $stockLabel }}</b></li>
+        </ul>
+        <p class="pd-stock-panel-note">Quantity across all sizes and colors. Exact allocation is confirmed in your written quote.</p>
+        <a class="btn btn-p pd-stock-panel-cta product-whatsapp-link" href="{{ $quoteUrl }}" target="_blank" rel="noopener noreferrer">Check stock on WhatsApp <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <button type="button" class="pd-stock-fab-btn" id="pd-stock-toggle" aria-expanded="false" aria-controls="pd-stock-panel">
+        <span class="pd-stock-fab-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"></path><path d="M3 7v10l9 4 9-4V7"></path><path d="M12 11v10"></path></svg>
+        </span>
+        <span class="pd-stock-fab-text">
+            <span class="pd-stock-fab-label">{{ $stockLabel }}</span>
+            <b class="pd-stock-fab-count">{{ number_format($totalStock) }} pcs</b>
+        </span>
+    </button>
 </div>
 @endsection
